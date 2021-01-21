@@ -11,9 +11,10 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.apache.os.FileUtils;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -93,23 +94,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
+    @SuppressLint("MissingSuperCall")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode==RESULT_OK && requestCode==EDIT_TEXT_CODE){
-            String itemText=data.getStringExtra(KEY_ITEM_TEXT);
 
-            int position=data.getExtras().getInt(KEY_ITEM_POSITION);
+        if (resultCode == RESULT_OK && requestCode == EDIT_TEXT_CODE) {
+            String itemText = data.getStringExtra(KEY_ITEM_TEXT);
 
-            items.set(position,itemText);
+            int position = data.getExtras().getInt(KEY_ITEM_POSITION);
+
+            items.set(position, itemText);
 
             itemsAdapter.notifyItemChanged(position);
 
             saveItems();
-            Toast.makeText(getApplicationContext(),"Item updated successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Item updated successfully!", Toast.LENGTH_SHORT).show();
 
-        }
-        else{
-            Log.w("MainActivity","Unknown call to onActivityResult");
+        } else {
+            Log.w("MainActivity", "Unknown call to onActivityResult");
         }
     }
 
